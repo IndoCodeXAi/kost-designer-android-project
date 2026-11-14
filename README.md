@@ -1,1 +1,0 @@
-# kost-designer-android-project
