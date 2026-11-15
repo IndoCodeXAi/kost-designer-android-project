@@ -35,8 +35,11 @@ public class MainActivity extends Activity {
         ws.setAllowFileAccess(true);
         ws.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        webView.setWebViewClient(new WebViewClient());
+        // Library pihak ketiga (Tailwind, Three.js, font) disimpan lokal setelah online sekali,
+        // lalu dipakai lagi dari penyimpanan HP walau tanpa internet
+        webView.setWebViewClient(new OfflineCachingWebViewClient(getFilesDir()));
         webView.setWebChromeClient(new WebChromeClient());
+        webView.addJavascriptInterface(new WebAppInterface(this), "AndroidBridge");
 
         // File asli KostDesigner 3D dimuat dari assets/index.html
         webView.loadUrl("file:///android_asset/index.html");
